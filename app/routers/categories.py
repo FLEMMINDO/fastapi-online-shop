@@ -1,7 +1,6 @@
 from fastapi import APIRouter
 
 
-# Маршрутизатор с префиксом и тегом
 router = APIRouter(
     prefix="/categories",
     tags=["categories"],

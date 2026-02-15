@@ -1,7 +1,6 @@
 from fastapi import APIRouter
 
 
-# Создаём маршрутизатор для товаров
 router = APIRouter(
     prefix="/products",
     tags=["products"],

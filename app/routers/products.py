@@ -19,7 +19,8 @@ async def get_all_products(db: Session = Depends(get_db)):
     """
     Возвращает список всех товаров.
     """
-    stmt = select(ProductModel).where(ProductModel.is_active == True)
+    stmt = select(ProductModel).join(CategoryModel).where(ProductModel.is_active == True,
+                                                          CategoryModel.is_active == True)
     db_products = db.scalars(stmt).all()
     return db_products
 
@@ -29,7 +30,8 @@ async def create_product(product: ProductCreate, db: Session = Depends(get_db)):
     """
     Создаёт новый товар.
     """
-    stmt = select(CategoryModel).where(CategoryModel.id == product.category_id)
+    stmt = select(CategoryModel).where(CategoryModel.id == product.category_id,
+                                    CategoryModel.is_active == True)
     if db.scalars(stmt).first() is None:
         raise HTTPException(status_code=404, detail=f"Category with id {product.category_id} not found")
 
@@ -50,7 +52,8 @@ async def get_products_by_category(category_id: int, db: Session = Depends(get_d
     if db.scalars(stmt).first() is None:
         raise HTTPException(status_code=404, detail=f"Category with id {category_id} not found or inactive")
 
-    stmt = select(ProductModel).where(ProductModel.category_id == category_id)
+    stmt = select(ProductModel).where(ProductModel.category_id == category_id,
+                                      ProductModel.is_active == True)
     db_products = db.scalars(stmt).all()
     return db_products
 

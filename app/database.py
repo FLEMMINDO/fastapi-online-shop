@@ -15,15 +15,6 @@ DB_USER = os.getenv("DB_USER")
 DB_PASSWORD = os.getenv("DB_PASSWORD")
 DB_NAME = os.getenv("DB_NAME")
 
-# SQLite
-
-DATABASE_URL = "sqlite:///fastapi-online-shop.db"
-
-engine = create_engine(DATABASE_URL, echo=True)
-
-SessionLocal = sessionmaker(bind=engine)
-
-
 # PostgreSQL async
 from sqlalchemy.ext.asyncio import create_async_engine, async_sessionmaker, AsyncSession
 from sqlalchemy.orm import DeclarativeBase

@@ -1,6 +1,5 @@
 from pydantic import BaseModel, Field, ConfigDict, EmailStr
 from decimal import Decimal
-from datetime import datetime
 
 
 class CategoryCreate(BaseModel):
@@ -52,7 +51,6 @@ class Product(BaseModel):
     image_url: str | None = Field(None, description="URL изображения товара")
     stock: int = Field(..., description="Количество товара на складе")
     category_id: int = Field(..., description="ID категории")
-    rating: float = Field(..., description="Оценка товара")
     is_active: bool = Field(..., description="Активность товара")
 
     model_config = ConfigDict(from_attributes=True)
@@ -78,30 +76,3 @@ class User(BaseModel):
 
 class RefreshTokenRequest(BaseModel):
     refresh_token: str
-
-
-class ReviewCreate(BaseModel):
-    """
-    Модель для создания и обновления отзыва.
-    Используется в POST и PUT запросах.
-    """
-    product_id: int = Field(..., description="Уникальный идентификатор продукта")
-    comment: str = Field(..., description="Текст отзыва")
-    grade: int = Field(..., description="Оценка для товара в отзыве")
-
-
-class Review(BaseModel):
-    """
-    Модель для ответа с данными отзыва.
-    Используется в GET-запросах.
-    """
-    id: int = Field(..., description="Уникальный идентификатор отзыва")
-    user_id: int = Field(..., description="Уникальный идентификатор пользователя")
-    product_id: int = Field(..., description="Уникальный идентификатор товара")
-    comment: str = Field(..., description="Текст отзыва")
-    comment_time: datetime = Field(..., description="Дата оставления отзыва")
-    change_time: datetime = Field(..., description="Дата обновления отзыва")
-    grade: int = Field(..., description="Оценка для товара в отзыве")
-    is_active: bool = Field(..., description="Активность отзыва")
-
-    model_config = ConfigDict(from_attributes=True)

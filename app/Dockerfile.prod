@@ -1,0 +1,25 @@
+FROM tiangolo/uvicorn-gunicorn:python3.11-slim
+
+ENV HOME=/home/fastapi_shop \
+    APP_HOME=/home/fastapi_shop/app \
+	LOGS_PATH=/var/logs \
+    PYTHONPATH="$PYTHONPATH:/home/fastapi_shop" \
+    PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1
+
+RUN mkdir -p $APP_HOME \
+  && mkdir -p $LOGS_PATH \
+  && groupadd -r fast\
+  && useradd -r -g fast fast
+
+WORKDIR $HOME
+ 
+COPY app app
+COPY requirements.txt alembic.ini .env .
+
+RUN pip install --upgrade pip \
+ && pip install -r requirements.txt \
+ && chown -R fast:fast . \
+ && chown -R fast:fast /var/logs
+ 
+ USER fast

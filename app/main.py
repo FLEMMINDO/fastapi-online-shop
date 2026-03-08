@@ -1,6 +1,9 @@
 from pathlib import Path
 from uuid import uuid4
 from loguru import logger
+from celery import Celery
+from app.c_tasks import call_background_task
+from app.config import CELERY_BROKER, CELERY_BACKEND
 from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
 from fastapi.staticfiles import StaticFiles
@@ -10,10 +13,10 @@ from fastapi.middleware.httpsredirect import HTTPSRedirectMiddleware
 
 from app.routers import categories, products, users, reviews, cart, orders, payments
 
-LOGGER_PATH = Path(__file__).resolve().parent.parent.parent
-logger.add(f"{LOGGER_PATH}/logs/info.log",
+LOGGER_PATH = '/var/logs'
+logger.add(f"{LOGGER_PATH}/info.log",
            format="{time:YYYY-MM-DD HH:mm:ss} - {extra[log_id]} - {level} - {message}",
-           level="INFO", enqueue=True, colorize=True, rotation='00:00', retention='2 month', compression='gz')
+           level="INFO", enqueue=True, colorize=True)  # rotation='00:00' compression='gz' retention='2 month'
 
 
 origins = [
@@ -24,6 +27,14 @@ app = FastAPI(
     title="FastAPI Интернет-магазин",
     version="1.0",
     description="Учебный проект"
+)
+
+
+celery = Celery(
+    __name__,
+    broker=CELERY_BROKER,
+    backend=CELERY_BACKEND,
+    broker_connection_retry_on_startup=True
 )
 
 
@@ -72,4 +83,6 @@ async def root():
     """
     Корневой маршрут, подтверждающий, что API работает.
     """
+    # name = 'kek'
+    # call_background_task.delay(name)
     return {"message": "Добро пожаловать в API интернет-магазина!"}

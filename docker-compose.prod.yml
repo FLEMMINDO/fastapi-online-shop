@@ -1,0 +1,28 @@
+name: fastapi_shop_prod
+services:
+  web:
+    build:
+      context: .
+      dockerfile: ./app/Dockerfile.prod
+    command: gunicorn app.main:app --workers 4 --worker-class uvicorn.workers.UvicornWorker --bind 0.0.0.0:8000
+    depends_on:
+      - db
+  
+  db:
+    image: postgres:17.3
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    environment:
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_DB=${DB_NAME}
+
+  nginx:
+    build: nginx
+    ports:
+      - 8080:80
+    depends_on:
+      - web
+
+volumes:
+  postgres_data:

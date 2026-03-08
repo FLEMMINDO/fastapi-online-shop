@@ -83,6 +83,6 @@ async def root():
     """
     Корневой маршрут, подтверждающий, что API работает.
     """
-    name = 'kek'
-    call_background_task.delay(name)
+    # name = 'kek'
+    # call_background_task.delay(name)
     return {"message": "Добро пожаловать в API интернет-магазина!"}

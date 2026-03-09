@@ -8,7 +8,7 @@ Switch filename into
 > .envtest -> .env
 
 Edit .env file, put values into
-### NECESSARY:
+### NECESSARY FOR BUILD:
 
 - DB_HOST=*db*
 - DB_PORT=*your value*
@@ -18,7 +18,7 @@ Edit .env file, put values into
 
 - SECRET_KEY=*your value*
 
-### UNNECESSARY:
+### UNNECESSARY FOR BUILD (coming soon):
 
 - YOOKASSA_SHOP_ID =*your value*
 - YOOKASSA_SECRET_KEY =*your value*
@@ -33,3 +33,18 @@ Use commands
 
 ### 4. visit localhost:8080; localhost:8080/docs
 Enjoy backend functions
+
+
+# technologies
+- python
+- fastapi
+- gunicorn/uvicorn
+- sqlalchemy
+- alembic
+- postgresql
+- celery
+- rabbitmq
+- docker/docker-compose
+
+# additional
+you can find working build [here](https://flemmindo.ru/docs)

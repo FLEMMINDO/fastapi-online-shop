@@ -1,3 +1,14 @@
+# version 1.0.0 (just backend)
+Contains default logic for online-shop, such as:
+- users (user creation, JWT auth, update role, refreshing OAUTH2 tokens)
+- categories (CRUD endpoints)
+- products (CRUD endpoints)
+- reviews (CRUD endpoints)
+- cart (CRUD endpoints)
+- orders (CRUD endpoints)<br>
+
+full docs you can check [here](https://flemmindo.ru/docs)
+
 # deploy
 ## 1. clone this .git repo
 Use
@@ -46,6 +57,3 @@ Enjoy backend functions
 - celery
 - rabbitmq
 - docker/docker-compose
-
-# additional
-you can find working build [here](https://flemmindo.ru/docs)

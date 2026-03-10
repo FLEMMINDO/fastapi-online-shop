@@ -9,6 +9,17 @@ Contains default logic for online-shop, such as:
 
 full docs you can check [here](https://flemmindo.ru/docs)
 
+# technologies
+- python
+- fastapi
+- gunicorn/uvicorn
+- sqlalchemy
+- alembic
+- postgresql
+- celery
+- rabbitmq
+- docker/docker-compose
+
 # deploy
 ## 1. clone this .git repo
 Use
@@ -46,14 +57,3 @@ Use commands
 ### 4. visit localhost:8080; localhost:8080/docs
 Enjoy backend functions
 
-
-# technologies
-- python
-- fastapi
-- gunicorn/uvicorn
-- sqlalchemy
-- alembic
-- postgresql
-- celery
-- rabbitmq
-- docker/docker-compose

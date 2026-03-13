@@ -25,7 +25,10 @@ full docs you can check [here](https://flemmindo.ru/docs)
 Use
 > git clone https://github.com/FLEMMINDO/fastapi-online-shop.git
 
-## 2. edit .envtest file
+## 2. create postgresql database
+Use pgadmin4 or psql (save credentials)
+
+## 3. edit .envtest file
 Switch filename into
 > .envtest -> .env
 
@@ -48,12 +51,14 @@ Edit .env file, put values into
 - BROKER =*do __not__ change* __OR__ *your value*
 - BACKEND =*do __not__ change* __OR__ *your value*
 
-## 3. build&up the container
+## 4. build&up the container
 Use commands
 > docker compose -f docker-compose.prod.yml build <br>
 > docker compose -f docker-compose.prod.yml up -d<br>
+
+## 5. apply migrations
 > docker compose -f docker-compose.prod.yml exec web alembic upgrade head <br>
 
-### 4. visit localhost:8080; localhost:8080/docs
+## 6. visit localhost:8080; localhost:8080/docs
 Enjoy backend functions
 
